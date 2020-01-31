@@ -84,9 +84,7 @@ public class IntList {
      * Empty the list, and thus set all elements to null.
      */
     public void clear() {
-        for (int i = 0; i < elementCount; i++) {
-            dataArray[i] = 0;
-        }
+        dataArray = EMPTY_ARRAY;
     }
 
     /**
@@ -108,6 +106,7 @@ public class IntList {
             dataArray[elementCount] = 0;
         }
         elementCount--;
+        this.trimToSize();
         return removedValue;
     }
 
@@ -145,14 +144,11 @@ public class IntList {
      */
     @Override
     public String toString() {
-        this.trimToSize();
         return Arrays.toString(dataArray);
     }
 
     /**
      * Trim off trailing zero elements.
-     * If a zero was deliberately added to the end of the list
-     * this method (nor the toString method) will not be able to recognize it.
      */
     public void trimToSize() {
         int oldCapacity = dataArray.length;
